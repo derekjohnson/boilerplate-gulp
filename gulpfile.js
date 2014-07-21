@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 
 require('gulp-grunt')(gulp, {
 	base: null,
-	prefix: 'grunt-'
+	prefix: 'grunt-',
 	verbose: true
 });
 
@@ -65,4 +65,9 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['fileinclude', 'sass', 'js']);
-gulp.task('img', ['svgmin', 'svg2png']);
+gulp.task('img', function() {
+	gulp.run('svgmin');
+	gulp.run('grunt-grunticon:prod');
+	gulp.run('svg2png');
+	gulp.run('grunt-imageoptim:prod');
+});
