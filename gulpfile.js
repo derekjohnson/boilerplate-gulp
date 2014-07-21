@@ -7,6 +7,12 @@ var gulp = require('gulp'),
 	svgmin = require('gulp-svgmin');
 	svg2png = require('gulp-svg2png');
 
+require('gulp-grunt')(gulp, {
+	base: null,
+	prefix: 'grunt-'
+	verbose: true
+});
+
 // Build HTML
 gulp.task('fileinclude', function() {
 	gulp.src('src/*.html')
