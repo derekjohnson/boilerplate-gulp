@@ -23,23 +23,26 @@ gulp.task('fileinclude', function() {
 // Compile Sass
 gulp.task('sass', function() {
 	gulp.src('src/sass/*.scss')
-		.pipe(sass())
+		.pipe(sass({
+			outputStyle: 'compressed'
+		}))
 		.pipe(gulp.dest('dist/css'));
 });
 
 // Concat & Minify JavaScript
 gulp.task('js', function() {
-	gulp.src(['src/js/main.js', 'src/js/fonts.js'])
+	gulp.src(['src/js/main.js'])
 		.pipe(concat('script.js'))
 		.pipe(uglify())
 		.pipe(rename('script.min.js'))
 		.pipe(gulp.dest('dist/js'));
 
-	gulp.src(['src/js/test1.js', 'src/js/test2.js'])
+	// e.g. for another template's scripts
+	/*gulp.src(['src/js/test1.js', 'src/js/test2.js'])
 		.pipe(concat('test.js'))
 		.pipe(uglify())
 		.pipe(rename('test.min.js'))
-		.pipe(gulp.dest('dist/js'));
+		.pipe(gulp.dest('dist/js'));*/
 });
 
 // JSHint
