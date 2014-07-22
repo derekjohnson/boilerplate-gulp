@@ -1,4 +1,8 @@
 module.exports = function(grunt) {
+	
+	// load tasks
+	grunt.loadNpmTasks('grunt-imageoptim');
+	grunt.loadNpmTasks('grunt-grunticon');
 
 	// config
 	grunt.initConfig({
@@ -33,5 +37,9 @@ module.exports = function(grunt) {
 				}*/
 			}
 		}
-	})
+	});
+
+	grunt.registerTask('default', ['grunticon', 'imageoptim']);
+	grunt.registerTask('squash', ['imageoptim']);
+	grunt.registerTask('icons', ['grunticon']);
 };

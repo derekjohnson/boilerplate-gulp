@@ -1,30 +1,30 @@
-var gulp = require('gulp'),
-	sass = require('gulp-sass'),
-	rename = require('gulp-rename'),
-	uglify = require('gulp-uglify'),
-	concat = require('gulp-concat');
-	fileinclude = require('gulp-file-include');
-	svgmin = require('gulp-svgmin');
-	svg2png = require('gulp-svg2png');
+var gulp = require('gulp');
 
 require('gulp-grunt')(gulp, {
-	base: null,
-	prefix: 'grunt-',
 	verbose: true
 });
+var sass = require('gulp-sass'),
+	rename = require('gulp-rename'),
+	uglify = require('gulp-uglify'),
+	concat = require('gulp-concat'),
+	fileinclude = require('gulp-file-include'),
+	svgmin = require('gulp-svgmin'),
+	svg2png = require('gulp-svg2png'),
+	jshint = require('gulp-jshint');
+
 
 // Build HTML
 gulp.task('fileinclude', function() {
 	gulp.src('src/*.html')
 		.pipe(fileinclude())
-		.pipe(gulp.dest('dist'))
+		.pipe(gulp.dest('dist'));
 });
 
 // Compile Sass
 gulp.task('sass', function() {
 	gulp.src('src/sass/*.scss')
 		.pipe(sass())
-		.pipe(gulp.dest('dist/css'))
+		.pipe(gulp.dest('dist/css'));
 });
 
 // Concat & Minify JavaScript
@@ -42,19 +42,26 @@ gulp.task('js', function() {
 		.pipe(gulp.dest('dist/js'));
 });
 
+// JSHint
+gulp.task('lint', function() {
+	gulp.src(['gulpfile.js', 'Gruntfile.js'])
+		.pipe(jshint())
+		.pipe(jshint.reporter('default'));
+});
+
 // Images
 gulp.task('svgmin', function() {
 	gulp.src('src/assets/images/*.svg')
 		.pipe(svgmin([{
 			removeViewBox: false
 		}]))
-		.pipe(gulp.dest('dist/images'))
+		.pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('svg2png', function() {
 	gulp.src('dist/images/*.svg')
 		.pipe(svg2png())
-		.pipe(gulp.dest('dist/images'))
+		.pipe(gulp.dest('dist/images'));
 });
 
 // Watch files
@@ -67,7 +74,7 @@ gulp.task('watch', function() {
 gulp.task('default', ['fileinclude', 'sass', 'js']);
 gulp.task('img', function() {
 	gulp.run('svgmin');
-	gulp.run('grunt-grunticon:prod');
+	gulp.run('grunt-icons');
 	gulp.run('svg2png');
-	gulp.run('grunt-imageoptim:prod');
+	gulp.run('grunt-squash');
 });
