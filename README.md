@@ -1,6 +1,6 @@
 # Frontend boilerplate based on [HTML5 Boilerplate](https://github.com/h5bp/html5-boilerplate) and using [Gulp](http://gulpjs.com/) with a little help from [Grunt](http://gruntjs.com/).
 
-## v 0.0.1 (2014-07-22)
+## v 0.0.1 (2014-07-30)
 
 This is a first go at porting my [Grunt based boilerplate](https://github.com/derekjohnson/boilerplate) to Gulp.
 
