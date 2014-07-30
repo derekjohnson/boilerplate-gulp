@@ -66,12 +66,15 @@ audio:not([controls]) {
  *	`em` units.
  * 2. Prevent iOS text size adjust after orientation change, without disabling
  *	user zoom.
+ *  3. Prevent 300ms tap delay on Windows phones.
  */
 
 html {
 	font-size: 100%; /* 1 */
 	-webkit-text-size-adjust: 100%; /* 2 */
 	-ms-text-size-adjust: 100%; /* 2 */
+    -ms-touch-action: manipulation; /* 3 */
+    touch-action: manipulation; /* 3 */
 }
 
 /**
