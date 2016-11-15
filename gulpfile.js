@@ -13,7 +13,7 @@ var sass = require('gulp-sass'),
   imageOptim = require('gulp-imageoptim'),
   jshint = require('gulp-jshint'),
   serve = require('gulp-serve'),
-  inlinesource = require('gulp-inline-source'),
+  inlineSource = require('gulp-inline-source'),
   browserSync = require('browser-sync').create();
 
 
@@ -32,6 +32,13 @@ gulp.task('sass', function() {
     }))
     .pipe(gulp.dest('dist/css'))
     .pipe(browserSync.stream());
+});
+
+// Inlining
+gulp.task('inlineSource', function () {
+  return gulp.src('src/*.html')
+    .pipe(inlineSource())
+    .pipe(gulp.dest('dist'));
 });
 
 // Concat & Minify JavaScript
