@@ -10,8 +10,10 @@ var sass = require('gulp-sass'),
   fileInclude = require('gulp-file-include'),
   svgmin = require('gulp-svgmin'),
   svg2png = require('gulp-svg2png'),
+  imageOptim = require('gulp-imageoptim'),
   jshint = require('gulp-jshint'),
   serve = require('gulp-serve'),
+  inlinesource = require('gulp-inline-source'),
   browserSync = require('browser-sync').create();
 
 
@@ -65,8 +67,14 @@ gulp.task('svgmin', function() {
 });
 
 gulp.task('svg2png', function() {
-  gulp.src('dist/images/*.svg')
+  gulp.src('src/assets/images/*.svg')
     .pipe(svg2png())
+    .pipe(gulp.dest('src/assets/images'));
+});
+
+// Copy images
+gulp.task('copyimages', function() {
+  gulp.src('src/assets/images/**/*')
     .pipe(gulp.dest('dist/images'));
 });
 
@@ -81,10 +89,11 @@ gulp.task('serve', ['sass'], function() {
   gulp.watch('src/**/*.html', ['fileInclude']).on('change', browserSync.reload);
 });
 
-gulp.task('default', ['fileInclude', 'sass', 'js']);
-gulp.task('img', function() {
+gulp.task('default', ['serve']);
+gulp.task('svg', function() {
   gulp.run('svgmin');
-  gulp.run('grunt-icons');
   gulp.run('svg2png');
   gulp.run('grunt-squash');
 });
+
+gulp.task('grunticon', ['grunt-icons']);
